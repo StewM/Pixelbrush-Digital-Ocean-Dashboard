@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'digitalocean'
+gem 'spawnling', '~>2.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

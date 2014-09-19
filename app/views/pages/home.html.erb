@@ -1,13 +1,14 @@
-
+<h1>Dev Sites</h1>
 
 <% droplets = Digitalocean::Droplet.all %>
 
-       <table class="table">
+       <table class="table table-hover">
        	<thead>
        		<th>#</th>
        		<th>Name</th>
        		<th>IP</th>
        		<th>Status</th>
+       		<th>Delete</th>
        	</thead>
        	<tbody>
        		<% dropletCount = 1 %>
@@ -17,6 +18,9 @@
 	       			<td><%= droplet.name %></td>
 	       			<td><%= link_to droplet.ip_address, "http://" + droplet.ip_address, target: "_blank" %></td>
 	       			<td <% if droplet.status == "active" %>style="color:#5cb85c;"<% end %>><%= droplet.status %></td>
+	       			<td><%= link_to delete_path(dropletid: droplet.id, dropletname: droplet.name), data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+            <% end %></td>
 	       		</tr>
 	       		<% dropletCount += 1 %>
 	       	<% end %>
