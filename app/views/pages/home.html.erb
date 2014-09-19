@@ -7,5 +7,26 @@
          <%= link_to "Log in", new_user_session_path, class: "btn btn-default btn-lg" %>
          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
        </p>
+
+       
   <% end %>  
 </div>
+
+<% droplets = Digitalocean::Droplet.all %>
+
+       <table>
+       	<thead>
+       		<th>Name</th>
+       		<th>IP</th>
+       		<th>Status</th>
+       	</thead>
+       	<tbody>
+	       	<% droplets.droplets.each do |droplet| %>
+	       		<tr>
+	       			<td><%= droplet.name %></td>
+	       			<td><%= droplet.ip_address %></td>
+	       			<td><%= droplet.status %></td>
+	       		</tr>
+	       	<% end %>
+       	</tbody>
+       </table>

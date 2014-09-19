@@ -21,6 +21,10 @@ module PixelbrushDigitalOcean
     # config.i18n.default_locale = :de
 
     config.assets.initialize_on_precompile = false
+
+    Digitalocean.client_id  = "add cient id here"
+    Digitalocean.api_key    = "add api key here"
+    Digitalocean.verify_ssl = false
   end
 end
 
