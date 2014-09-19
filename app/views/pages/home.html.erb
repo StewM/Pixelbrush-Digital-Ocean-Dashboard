@@ -1,32 +1,24 @@
-<div class="jumbotron center">
-     <h1>Pixelbrush Dev Dashboard</h1>
-     <% if user_signed_in? %>
-          # do something
-     <% else %>
-       <p>
-         <%= link_to "Log in", new_user_session_path, class: "btn btn-default btn-lg" %>
-         <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-lg" %>
-       </p>
 
-       
-  <% end %>  
-</div>
 
 <% droplets = Digitalocean::Droplet.all %>
 
-       <table>
+       <table class="table">
        	<thead>
+       		<th>#</th>
        		<th>Name</th>
        		<th>IP</th>
        		<th>Status</th>
        	</thead>
        	<tbody>
+       		<% dropletCount = 1 %>
 	       	<% droplets.droplets.each do |droplet| %>
 	       		<tr>
+	       			<td><%= dropletCount %></td>
 	       			<td><%= droplet.name %></td>
-	       			<td><%= droplet.ip_address %></td>
-	       			<td><%= droplet.status %></td>
+	       			<td><%= link_to droplet.ip_address, "http://" + droplet.ip_address, target: "_blank" %></td>
+	       			<td <% if droplet.status == "active" %>style="color:#5cb85c;"<% end %>><%= droplet.status %></td>
 	       		</tr>
+	       		<% dropletCount += 1 %>
 	       	<% end %>
        	</tbody>
        </table>
