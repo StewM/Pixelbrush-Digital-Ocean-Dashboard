@@ -11,6 +11,14 @@ class PagesController < ApplicationController
   	end
   end
 
+  def create
+  	if !user_signed_in?
+  		redirect_to new_user_session_path, notice: 'You must be logged in'
+  	end
+
+  	redirect_to root_path, notice: params[:dropletname] + " " + params[:snapshot] + " " + params[:newsite]
+  end
+
   def delete
   		if !user_signed_in?
 	  		redirect_to new_user_session_path, notice: 'You must be logged in'
