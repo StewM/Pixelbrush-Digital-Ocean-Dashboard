@@ -16,7 +16,7 @@
 	       		<tr>
 	       			<td><%= dropletCount %></td>
 	       			<td><%= droplet.name %></td>
-	       			<td><%= link_to droplet.ip_address, "http://" + droplet.ip_address, target: "_blank" %></td>
+	       			<td><%= link_to droplet.ip_address, "http://" + droplet.ip_address.to_s, target: "_blank" %></td>
 	       			<td <% if droplet.status == "active" %>style="color:#5cb85c;"<% end %>><%= droplet.status %></td>
 	       			<td><%= link_to delete_path(dropletid: droplet.id, dropletname: droplet.name), data: { confirm: 'Are you sure?' } do %>
               <span class="glyphicon glyphicon-trash"></span>

@@ -6,7 +6,7 @@
   </div>
 
 <% snapshots = Digitalocean::Image.all({filter: "my_images"}) %>
-<% choices = "<option value=''>Choose One</option>" %>
+<% choices = "" %>
 <% snapshots.images.each do |snapshot| %>
 	<% choices = choices + "<option value='" + snapshot.id.to_s + "'>" + snapshot.name + "</option>" %>
 <% end %>
@@ -15,12 +15,13 @@
 <%= form_tag({controller: "pages", action: "create"}, method: "post") do %>
 	<div class="form-group">
 	    <%= label_tag :dropletname, "Dev Site Name" %>
-	    <%= text_field_tag :dropletname, nil, class: "form-control" %>
+	    <%= text_field_tag :dropletname, nil, class: "form-control", required: true, pattern: "[a-zA-Z0-9.-]*[a-zA-Z0-9.]" %>
+	    <p class="help-block">Name can only be Alphanumeric characters, periods, and dashes. No Spaces. Last character cannot be a dash.</p>
   	</div>
 
   	<div class="form-group">
   		<%= label_tag :snapshot, "Choose A Snapshot" %>
-  		<%= select_tag :snapshot, choices.html_safe, class: "form-control" %>
+  		<%= select_tag :snapshot, choices.html_safe, class: "form-control", prompt: "Choose One", required: true %>
   	</div>
 
   	<div class="form-group">
@@ -34,3 +35,4 @@
 <% end %>
 </div>
 </div>
+

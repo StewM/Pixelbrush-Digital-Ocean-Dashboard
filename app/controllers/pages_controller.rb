@@ -16,7 +16,46 @@ class PagesController < ApplicationController
   		redirect_to new_user_session_path, notice: 'You must be logged in'
   	end
 
-  	redirect_to root_path, notice: params[:dropletname] + " " + params[:snapshot] + " " + params[:newsite]
+  	siteName = params[:dropletname]
+  	snapshotID = params[:snapshot]
+  	newSite = params[:newsite]
+
+  	regions = Digitalocean::Region.all
+	sizes = Digitalocean::Size.all 
+	sshs = Digitalocean::SshKey.all
+
+	regionID = ""
+
+	regions.regions.each do |region|
+		if region.slug == "nyc3"
+			regionID = region.id
+		end
+	end
+
+	sizeID = ""
+
+	sizes.sizes.each do |size|
+		if size.slug == "512mb"
+			sizeID = size.id
+		end
+	end
+
+	sshKeys = ""
+
+	sshs.ssh_keys.each do |ssh|
+		sshKeys = sshKeys + ssh.id.to_s + ","
+	end
+
+	sshKeys.chop!
+
+	created = Digitalocean::Droplet.create({name: siteName, size_id: sizeID, image_id: snapshotID, region_id: regionID, ssh_key_ids: sshKeys})
+
+	if created.status == "OK"
+		redirect_to root_path, notice: "Creation of " + siteName + " started."
+	
+	else
+  		redirect_to root_path, notice: "Site creation failed"
+  	end
   end
 
   def delete
