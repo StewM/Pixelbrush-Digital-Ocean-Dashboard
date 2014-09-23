@@ -4,6 +4,7 @@ PixelbrushDigitalOcean::Application.routes.draw do
   get "new" => "pages#new"
   get "delete" => "pages#delete"
   post "create" => "pages#create"
+  get "info" => "pages#info"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

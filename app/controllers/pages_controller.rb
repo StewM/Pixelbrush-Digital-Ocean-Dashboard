@@ -5,6 +5,18 @@ class PagesController < ApplicationController
   	end
   end
 
+  def info
+  	if !user_signed_in?
+  		redirect_to new_user_session_path, notice: 'You must be logged in'
+  	end
+  	@siteIP = params[:dropletip]
+  	@siteName = params[:dropletname]
+
+  	if @siteIP == "" or @siteIP == nil
+  		redirect_to root_path
+  	end
+  end
+
   def new
   	if !user_signed_in?
   		redirect_to new_user_session_path, notice: 'You must be logged in'
