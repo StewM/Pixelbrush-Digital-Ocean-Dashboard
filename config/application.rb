@@ -22,8 +22,8 @@ module PixelbrushDigitalOcean
 
     config.assets.initialize_on_precompile = false
 
-    Digitalocean.client_id  = "{CLIENT ID}"
-    Digitalocean.api_key    = "{API KEY}"
+    Digitalocean.client_id  = ENV['CLIENT_ID']
+    Digitalocean.api_key    = ENV['API_KEY']
     Digitalocean.verify_ssl = false
   end
 end
